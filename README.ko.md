@@ -127,7 +127,7 @@ ComfyUI의 `custom_nodes` 폴더에서 이 repository를 clone합니다:
 
 ```bash
 cd ComfyUI/custom_nodes
-git clone <repository-url> anima-artist-mix
+git clone https://github.com/granatta000/anima-artist-mixer anima-artist-mixer
 ```
 
 설치하거나 업데이트한 뒤 ComfyUI를 재시작하세요.
