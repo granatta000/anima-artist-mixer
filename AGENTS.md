@@ -33,7 +33,7 @@ To test inside ComfyUI, place this repository under:
 ComfyUI/custom_nodes/anima-artist-mix
 ```
 
-Then restart ComfyUI and confirm the `Anima Artst Mixer` node appears under `conditioning/anima`.
+Then restart ComfyUI and confirm the `Anima Artist Mixer` node appears under `conditioning/anima`.
 
 ## Coding Style & Naming Conventions
 

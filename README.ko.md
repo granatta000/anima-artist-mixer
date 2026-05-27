@@ -6,12 +6,20 @@
 
 positive prompt를 매번 직접 다시 만들지 않고, 여러 작가 스타일의 혼합을 비교하고 싶을 때 사용합니다.
 
+Anima는 Qwen3 text encoder와 LLM Adapter를 거쳐 DiT 모델의 cross-attention conditioning을 만듭니다. 작가 태그도 이 텍스트 conditioning 경로에 들어가기 때문에, 작가별로 따로 encode한 conditioning을 섞으면 여러 태그를 한 prompt에 길게 붙이는 방식보다 스타일 조합을 더 예측 가능하게 탐색할 수 있습니다.
+
+이 노드는 이런 경우에 쓰기 좋습니다:
+
+- 같은 `base_prompt`를 유지한 채 작가 조합을 비교하고 싶을 때.
+- 작가별 영향도를 간단한 weight로 조절하고 싶을 때.
+- 작가 스타일 blend를 positive prompt의 다른 내용과 분리해서 다루고 싶을 때.
+
 ## 노드
 
 표시 이름:
 
 ```text
-Anima Artst Mixer
+Anima Artist Mixer
 ```
 
 카테고리:
@@ -101,6 +109,10 @@ positive prompt에 작가 태그를 직접 모두 적는 방식과 가장 비슷
 
 ## 어떤 모드를 쓰면 좋나요?
 
+일반적인 사용에서는 `average` 모드를 먼저 추천합니다. 안정적인 혼합 스타일을 만들기 쉽고, sampler에는 하나의 positive conditioning 항목만 전달되어 동작이 단순합니다.
+
+`exact`와 `prompt`는 비교나 특정한 결과를 찾기 위한 실험적인 기능으로 보는 것이 좋습니다. 워크플로, 작가 수, 가중치에 따라 체감이 달라질 수 있습니다.
+
 | 목표 | 추천 모드 |
 | --- | --- |
 | 일관된 혼합 스타일 | `average` |
@@ -111,10 +123,11 @@ positive prompt에 작가 태그를 직접 모두 적는 방식과 가장 비슷
 
 ## 설치
 
-이 폴더를 ComfyUI custom nodes 아래에 넣습니다:
+ComfyUI의 `custom_nodes` 폴더에서 이 repository를 clone합니다:
 
-```text
-ComfyUI/custom_nodes/anima-artist-mix
+```bash
+cd ComfyUI/custom_nodes
+git clone <repository-url> anima-artist-mix
 ```
 
 설치하거나 업데이트한 뒤 ComfyUI를 재시작하세요.

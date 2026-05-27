@@ -6,12 +6,20 @@ ComfyUI custom node for combining multiple Anima artist tags into a single posit
 
 The node is intended for workflows where you want to test blended artist styles without manually rebuilding the positive prompt each time.
 
+Anima uses a Qwen3 text encoder and an LLM Adapter to create cross-attention conditioning for its DiT model. Because artist tags are part of that text conditioning path, blending separately encoded artist conditions can be useful when you want to explore style combinations more predictably than by only appending many tags to one long prompt.
+
+Use this node when you want to:
+
+- Compare artist mixes while keeping the same base prompt.
+- Adjust each artist's influence with simple weights.
+- Keep artist blending separate from the rest of your positive prompt.
+
 ## Node
 
 Display name:
 
 ```text
-Anima Artst Mixer
+Anima Artist Mixer
 ```
 
 Category:
@@ -101,6 +109,10 @@ and encodes it once. This is closest to manually typing every artist tag into th
 
 ## Which Mode Should I Use?
 
+Use `average` first. It is the recommended mode for normal use because it gives a stable mixed style, returns one positive conditioning entry, and keeps sampling behavior straightforward.
+
+`exact` and `prompt` are included as experimental alternatives. They can be useful for comparison or for finding a specific look, but their behavior may be more workflow-dependent than `average`.
+
 | Goal | Recommended mode |
 | --- | --- |
 | Consistent blended style | `average` |
@@ -111,10 +123,11 @@ If `artist_text` is empty, the node encodes only `base_prompt`.
 
 ## Install
 
-Place this folder under ComfyUI custom nodes:
+Clone this repository into your ComfyUI `custom_nodes` folder:
 
-```text
-ComfyUI/custom_nodes/anima-artist-mix
+```bash
+cd ComfyUI/custom_nodes
+git clone <repository-url> anima-artist-mix
 ```
 
 Restart ComfyUI after installing or updating.
